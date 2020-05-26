@@ -9,13 +9,8 @@ export class LessonResolver {
   constructor(private lessonService: LessonService) {}
 
   @Query(_returns => LessonType)
-  lesson() {
-    return {
-      id: '23456ye3e',
-      name: 'Physics Class',
-      startDate: new Date().toISOString(),
-      endDate: new Date().toISOString(),
-    };
+  lesson(@Args('id') id: string) {
+    return this.lessonService.getById(id);
   }
 
   @Mutation(_returns => LessonType)

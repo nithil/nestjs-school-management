@@ -14,4 +14,8 @@ export class LessonService {
 
     return await this.lessonRepository.save(lesson);
   }
+
+  async getById(id: string): Promise<Lesson> {
+    return await this.lessonRepository.findOne({ id });
+  }
 }
