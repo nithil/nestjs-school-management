@@ -9,6 +9,11 @@ import { CreateLessonInput } from './lesson.input';
 export class LessonResolver {
   constructor(private lessonService: LessonService) {}
 
+  @Query(_returns => [LessonType])
+  lessons() {
+    return this.lessonService.getAll();
+  }
+
   @Query(_returns => LessonType)
   lesson(@Args('id') id: string) {
     return this.lessonService.getById(id);

@@ -10,15 +10,19 @@ import { CreateLessonInput } from './lesson.input';
 export class LessonService {
   constructor(@InjectRepository(Lesson) private lessonRepository: Repository<Lesson>) {}
 
+  async getAll(): Promise<Lesson[]> {
+    return this.lessonRepository.find();
+  }
+
+  async getById(id: string): Promise<Lesson> {
+    return await this.lessonRepository.findOne({ id });
+  }
+
   async create(createLessonInput: CreateLessonInput): Promise<Lesson> {
     const { name, startDate, endDate } = createLessonInput;
 
     const lesson = this.lessonRepository.create({ id: uuid(), name, startDate, endDate });
 
     return await this.lessonRepository.save(lesson);
-  }
-
-  async getById(id: string): Promise<Lesson> {
-    return await this.lessonRepository.findOne({ id });
   }
 }
